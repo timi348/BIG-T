@@ -1,32 +1,989 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>MY FIRST WEB</title>
-    </head>
-    <body>
-        <header>
-            <main>
-                <section>
-                    <n1>MY WEB PAGE</n1>
-        <P>We satisfy our customer with maximum respect </P> 
-                </section>
-            </main>
-            <main>
-            <nav>
-                <h2>Our service include:</h2>
-                <ul>
-                    <li>About</li>          
-                    <li>Contact</li>
-                    <li>Services</li>
-                    <li>Home</li>
-                </ul>
-                <button>GET STARTED</button>
-            </nav>
-            </main>
-            <foster>
-                <p>@2026, All right reserved</p>
-                <p>Created by BIG T</p>
-            </foster>
-        </header>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Farmers Market</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7f2;
+            color: #222;
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 7%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #238636;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        nav a:hover {
+            color: #238636;
+        }
+
+        .login {
+            background: #238636;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            padding: 60px 7%;
+
+            background-image:
+                linear-gradient(
+                    rgba(0,0,0,0.45),
+                    rgba(0,0,0,0.45)
+                ),
+                url("https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1600&q=80");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-text {
+            max-width: 600px;
+            color: white;
+        }
+
+        .hero-text h1 {
+            font-size: 55px;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .shop-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            background: #2e9b46;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        /* SEARCH */
+        .search-section {
+            padding: 50px 7%;
+            background: white;
+            text-align: center;
+        }
+
+        .search-section h2 {
+            margin-bottom: 25px;
+            font-size: 30px;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filters input,
+        .filters select {
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .filters input {
+            width: 400px;
+        }
+
+        /* PRODUCTS */
+        .products {
+            padding: 60px 7%;
+        }
+
+        .products > h2 {
+            text-align: center;
+            margin-bottom: 35px;
+            font-size: 32px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+        }
+
+        /* PRODUCT CARD */
+        .product {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+        }
+
+        .product img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .category {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #238636;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .product h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .product p {
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .product h4 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .stock {
+            display: inline-block;
+            color: #238636;
+            background: #e8f5e9;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .product button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 7px;
+            background: #238636;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .product button:hover {
+            background: #176b2c;
+        }
+
+        /* NO RESULTS */
+        #noResults {
+            display: none;
+            text-align: center;
+            font-size: 20px;
+            padding: 40px;
+            color: #777;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            background: #172b19;
+            color: white;
+            padding: 40px 20px;
+            margin-top: 40px;
+        }
+
+        footer h2 {
+            margin-bottom: 15px;
+        }
+
+        footer p {
+            margin: 8px;
+        }
+
+        /* MOBILE */
+        @media (max-width: 700px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero-text h1 {
+                font-size: 40px;
+            }
+
+            .hero-text p {
+                font-size: 17px;
+            }
+
+            .filters input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+
+        <div class="logo">
+            AGROHUB
+        </div>
+
+        <nav>
+            <a href="#">Home</a>
+            <a href="#products">Products</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <button class="login">
+            Login
+        </button>
+
+    </header>
+
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-text">
+
+            <h1>
+                Fresh From The Farm
+            </h1>
+
+            <p>
+                Buy fresh fruits, vegetables, grains,
+                meat and other farm products directly
+                from local farmers.
+            </p>
+
+            <button class="shop-btn">
+                Shop Now
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- SEARCH -->
+    <section class="search-section">
+
+        <h2>
+            Find Fresh Products
+        </h2>
+
+        <div class="filters">
+
+            <input
+                type="text"
+                id="search"
+                placeholder="🔎 Search for a product..."
+            >
+
+            <select id="category">
+
+                <option value="all">
+                    All Categories
+                </option>
+
+                <option value="fruit">
+                    Fruits
+                </option>
+
+                <option value="vegetable">
+                    Vegetables
+                </option>
+
+                <option value="grain">
+                    Grains
+                </option>
+
+                <option value="dairy">
+                    Eggs & Dairy
+                </option>
+
+                <option value="meat">
+                    Meat & Poultry
+                </option>
+
+            </select>
+
+
+            <select id="location">
+
+                <option value="all">
+                    All Locations
+                </option>
+
+                <option value="lagos">
+                    Lagos
+                </option>
+
+                <option value="abuja">
+                    Abuja
+                </option>
+
+                <option value="ibadan">
+                    Ibadan
+                </option>
+
+                <option value="kano">
+                    Kano
+                </option>
+
+            </select>
+
+        </div>
+
+    </section>
+
+
+    <!-- PRODUCTS -->
+    <section class="products" id="products">
+
+        <h2>
+            Available Products
+        </h2>
+
+        <div class="product-grid" id="productGrid">
+
+
+            <!-- APPLE -->
+            <div
+                class="product"
+                data-name="apple"
+                data-category="fruit"
+                data-location="lagos"
+            >
+
+                <img
+                    src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80"
+                    alt="Fresh Apples"
+                >
+
+                <div class="product-info">
+
+                    <span class="category">
+                        Fruit
+                    </span>
+
+                    <h3>
+                        Fresh Apples
+                    </h3>
+
+                    <p>
+                        📍 Lagos
+                    </p>
+
+                    <h4>
+                        ₦4,500 / basket
+                    </h4>
+
+                    <span class="stock">
+                        In Stock
+                    </span>
+
+                    <button>
+                        Buy Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- BANANA -->
+            <div
+                class="product"
+                data-name="banana"
+                data-category="fruit"
+                data-location="abuja"
+            >
+
+                <img
+                    src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80"
+                    alt="Fresh Bananas"
+                >
+
+                <div class="product-info">
+
+                    <span class="category">
+                        Fruit
+                    </span>
+
+                    <h3>
+                        Fresh Bananas
+                    </h3>
+
+                    <p>
+                        📍 Abuja
+                    </p>
+
+                    <h4>
+                        ₦2,500 / bunch
+                    </h4>
+
+                    <span class="stock">
+                        In Stock
+                    </span>
+
+                    <button>
+                        Buy Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ORANGE -->
+            <div
+                class="product"
+                data-name="orange"
+                data-category="fruit"
+                data-location="ibadan"
+            >
+
+                <img
+                    src="https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&fit=crop&w=600&q=80"
+                    alt="Fresh Oranges"
+                >
+
+                <div class="product-info">
+
+                    <span class="category">
+                        Fruit
+                    </span>
+
+                    <h3>
+                        Fresh Oranges
+                    </h3>
+
+                    <p>
+                        📍 Ibadan
+                    </p>
+
+                    <h4>
+                        ₦3,000 / basket
+                    </h4>
+
+                    <span class="stock">
+                        In Stock
+                    </span>
+
+                    <button>
+                        Buy Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- MANGO -->
+            <div
+                class="product"
+                data-name="mango"
+                data-category="fruit"
+                data-location="kano"
+            >
+
+                <img
+                    src="https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=600&q=80"
+                    alt="Fresh Mangoes"
+                >
+
+                <div class="product-info">
+
+                    <span class="category">
+                        Fruit
+                    </span>
+
+                    <h3>
+                        Sweet Mangoes
+                    </h3>
+
+                    <p>
+                        📍 Kano
+                    </p>
+
+                    <h4>
+                        ₦3,500 / basket
+                    </h4>
+
+                    <span class="stock">
+                        Low Stock
+                    </span>
+
+                    <button>
+                        Buy Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- WATERMELON -->
+            <div
+                class="product"
+                data-name="watermelon"
+                data-category="fruit"
+                data-location="lagos"
+            >
+
+                <img
+                    src="https://images.unsplash.com/photo-1563114773-84221bd62daa?auto=format&fit=crop&w=600&q=80"
+                    alt="Watermelon"
+                >
+
+                <div class="product-info">
+
+                    <span class="category">
+                        Fruit
+                    </span>
+
+                    <h3>
+                        Watermelon
+                    </h3>
+
+                    <p>
+                        📍 Lagos
+                    </p>
+
+                    <h4>
+                        ₦2,000 each
+                    </h4>
+
+                    <span class="stock">
+                        In Stock
+                    </span>
+
+                    <button>
+                        Buy Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- PINEAPPLE -->
+            <div
+                class="product"
+                data-name="pineapple"
+                data-category="fruit"
+                data-location="abuja"
+            >
+
+                <img
+                    src="https://images.unsplash.com/photo-1550258987-190a2d41a8ba?auto=format&fit=crop&w=600&q=80"
+                    alt="Pineapple"
+                >
+
+                <div class="product-info">
+
+                    <span class="category">
+                        Fruit
+                    </span>
+
+                    <h3>
+                        Fresh Pineapple
+                    </h3>
+
+                    <p>
+                        📍 Abuja
+                    </p>
+
+                    <h4>
+                        ₦2,500 each
+                    </h4>
+
+                    <span class="stock">
+                        In Stock
+                    </span>
+
+                    <button>
+                        Buy Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- TOMATO -->
+            <div
+                class="product"
+                data-name="tomato"
+                data-category="vegetable"
+                data-location="lagos"
+            >
+
+                <img
+                    src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=600&q=80"
+                    alt="Fresh Tomatoes"
+                >
+
+                <div class="product-info">
+
+                    <span class="category">
+                        Vegetable
+                    </span>
+
+                    <h3>
+                        Fresh Tomatoes
+                    </h3>
+
+                    <p>
+                        📍 Lagos
+                    </p>
+
+                    <h4>
+                        ₦3,500 / basket
+                    </h4>
+
+                    <span class="stock">
+                        In Stock
+                    </span>
+
+                    <button>
+                        Buy Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARROT -->
+            <div
+                class="product"
+                data-name="carrot"
+                data-category="vegetable"
+                data-location="abuja"
+            >
+
+                <img
+                    src="https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=600&q=80"
+                    alt="Fresh Carrots"
+                >
+
+                <div class="product-info">
+
+                    <span class="category">
+                        Vegetable
+                    </span>
+
+                    <h3>
+                        Fresh Carrots
+                    </h3>
+
+                    <p>
+                        📍 Abuja
+                    </p>
+
+                    <h4>
+                        ₦2,500 / basket
+                    </h4>
+
+                    <span class="stock">
+                        In Stock
+                    </span>
+
+                    <button>
+                        Buy Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- RICE -->
+            <div
+                class="product"
+                data-name="rice"
+                data-category="grain"
+                data-location="kano"
+            >
+
+                <img
+                    src="https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?auto=format&fit=crop&w=600&q=80"
+                    alt="Local Rice"
+                >
+
+                <div class="product-info">
+
+                    <span class="category">
+                        Grain
+                    </span>
+
+                    <h3>
+                        Local Rice
+                    </h3>
+
+                    <p>
+                        📍 Kano
+                    </p>
+
+                    <h4>
+                        ₦45,000 / bag
+                    </h4>
+
+                    <span class="stock">
+                        In Stock
+                    </span>
+
+                    <button>
+                        Buy Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- EGGS -->
+            <div
+                class="product"
+                data-name="eggs"
+                data-category="dairy"
+                data-location="lagos"
+            >
+
+                <img
+                    src="https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?auto=format&fit=crop&w=600&q=80"
+                    alt="Farm Fresh Eggs"
+                >
+
+                <div class="product-info">
+
+                    <span class="category">
+                        Eggs & Dairy
+                    </span>
+
+                    <h3>
+                        Farm Fresh Eggs
+                    </h3>
+
+                    <p>
+                        📍 Lagos
+                    </p>
+
+                    <h4>
+                        ₦6,000 / crate
+                    </h4>
+
+                    <span class="stock">
+                        In Stock
+                    </span>
+
+                    <button>
+                        Buy Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <p id="noResults">
+            No products found.
+        </p>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <h2>
+             Farmers Market
+        </h2>
+
+        <p>
+            Fresh food directly from Nigerian farmers.
+        </p>
+
+        <p>
+            © 2026 Farmers Market. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- SEARCH/FILTER JAVASCRIPT -->
+    <script>
+
+        const search =
+            document.getElementById("search");
+
+        const category =
+            document.getElementById("category");
+
+        const locationFilter =
+            document.getElementById("location");
+
+        const products =
+            document.querySelectorAll(".product");
+
+        const noResults =
+            document.getElementById("noResults");
+
+
+        function filterProducts() {
+
+            const searchValue =
+                search.value.toLowerCase();
+
+            const categoryValue =
+                category.value;
+
+            const locationValue =
+                locationFilter.value;
+
+            let found = 0;
+
+
+            products.forEach(product => {
+
+                const name =
+                    product.dataset.name;
+
+                const productCategory =
+                    product.dataset.category;
+
+                const productLocation =
+                    product.dataset.location;
+
+
+                const matchesSearch =
+                    name.includes(searchValue);
+
+                const matchesCategory =
+                    categoryValue === "all" ||
+                    productCategory === categoryValue;
+
+                const matchesLocation =
+                    locationValue === "all" ||
+                    productLocation === locationValue;
+
+
+                if (
+                    matchesSearch &&
+                    matchesCategory &&
+                    matchesLocation
+                ) {
+
+                    product.style.display = "block";
+
+                    found++;
+
+                } else {
+
+                    product.style.display = "none";
+
+                }
+
+            });
+
+
+            if (found === 0) {
+
+                noResults.style.display = "block";
+
+            } else {
+
+                noResults.style.display = "none";
+
+            }
+
+        }
+
+
+        search.addEventListener(
+            "input",
+            filterProducts
+        );
+
+        category.addEventListener(
+            "change",
+            filterProducts
+        );
+
+        locationFilter.addEventListener(
+            "change",
+            filterProducts
+        );
+
+    </script>
+
+</body>
 </html>

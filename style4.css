@@ -1,0 +1,100 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+}
+
+header {
+    background: #16803c;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 20px;
+}
+
+.hero {
+    text-align: center;
+    padding: 70px 20px;
+    background: #e7ff5e9;
+}
+
+.hero h2 {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.hero input {
+    margin-top: 20px;
+    width: 300px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+#shop {
+    padding: 50px;
+    text-align: center; 
+}
+
+.product {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin-top: 30px
+}
+
+.product {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px #ccc;
+}
+
+.product img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover:
+    border-radius: 8x;
+}
+
+button {
+    background: #16803c;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0f5c2b;
+}
+
+sell {
+    text-align: center;
+    padding: 60px 20px;
+    background: #dff2e3;
+}
+
+.sell button {
+    margin-top: 20px;
+}
+
+footer {
+    background: #3d3d3d;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
